@@ -35,7 +35,7 @@ function AddBoard() {
             const copyBoard = [...allBoards];
             const check = copyBoard.filter(item => item.boardId === toDo);
             if(check.length === 0) {
-                copyBoard.push({boardId: toDo, toDos: []});
+                copyBoard.push({id:Date.now() ,boardId: toDo, toDos: []});
                 localStorage.setItem('toDos', JSON.stringify([...copyBoard]))
             }
             return [...copyBoard];

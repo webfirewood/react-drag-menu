@@ -5,8 +5,9 @@ export interface ITodo {
     text: string;
 }
 
-interface IToDosState {
+export interface IToDosState {
     //[key:string]: ITodo[];
+    id:number;
     boardId: string;
     toDos: ITodo[];
 }

@@ -21,9 +21,9 @@ interface IBoardProps {
 function Delete() {
     return (
         <Wrapper>
-            <Droppable droppableId="del">
+            <Droppable droppableId="del" type="board">
                 {(magic) => (
-                    <Area ref={magic.innerRef} {...magic.droppableProps}><AiFillDelete  size="24" />
+                    <Area ref={magic.innerRef} {...magic.droppableProps}><AiFillDelete size="24" />
                         {magic.placeholder}
                     </Area>
                 )}

@@ -7,37 +7,10 @@ import {useRecoilState, useSetRecoilState} from "recoil";
 import {AiFillDelete} from "react-icons/ai";
 import React from "react";
 import produce from "immer";
+import Delete from "./Delete";
 
-const Wrapper = styled.div`
-  width: 300px;
-  padding-top: 10px;
-  background-color: ${(props) => props.theme.boardColor};
-  border-radius: 5px;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
 
-const CardWrapper = styled.div`
-  width: 300px;
-  padding-top: 10px;
-  background-color: ${(props) => props.theme.boardColor};
-  border-radius: 5px;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
 
-const Title = styled.h2`
-  display: grid;
-  grid-template-columns: repeat(2, 2fr);
-  text-align: center;
-  font-weight: 600;
-  margin-bottom: 10px;
-  font-size: 18px;
-`;
 
 interface IAreaProps {
     isDraggingFromThis: boolean;
@@ -111,8 +84,7 @@ function Board({ toDos, boardId }: IBoardProps) {
         setValue("toDo", "");
     }
     return (
-        <Wrapper>
-            <Title>{boardId}<AiFillDelete onClick={onClick}>삭제</AiFillDelete></Title>
+        <div>
             <Form onSubmit={handleSubmit(onValid)}>
                 <input
                     {...register("toDo", {required: true})}
@@ -120,7 +92,7 @@ function Board({ toDos, boardId }: IBoardProps) {
                     placeholder={`Add to task on ${boardId}`}
                 />
             </Form>
-            <Droppable droppableId={boardId}>
+            <Droppable droppableId={boardId} type="board">
                 {(magic, info) => (
                     <Area
                         isDraggingOver={info.isDraggingOver}
@@ -128,15 +100,16 @@ function Board({ toDos, boardId }: IBoardProps) {
                         ref={magic.innerRef}
                         {...magic.droppableProps}
                     >
-                        {toDos.map((toDo, index) => (
+                        {toDos.length > 0 ? toDos.map((toDo, index) => (
                             <DragabbleCard key={toDo.id} idx={index} toDoId={toDo.id} toDoText={toDo.text} />
-                        ))}
+                        )) : []}
                         {magic.placeholder}
                     </Area>
 
                 )}
             </Droppable>
-        </Wrapper>
+        </div>
+
     );
 }
 export default Board;
